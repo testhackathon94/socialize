@@ -1,7 +1,7 @@
 package com.amazon.domain.bean;
 
 import java.util.Date;
-
+ 
 public class Friend {
 
 	private Integer id;

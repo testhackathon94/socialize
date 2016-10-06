@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 public class GoodBuy {
-
+ 
 	private Integer id;
 	private Product product;
 	private User user;

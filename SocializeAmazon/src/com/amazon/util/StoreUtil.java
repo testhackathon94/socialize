@@ -26,11 +26,11 @@ public class StoreUtil {
 			Transaction t = session.beginTransaction();
 
 			Employee e1 = new Employee();
-			e1.setId(215);
+			e1.setId(119);
 			e1.setFirstName("sonoo1");
 			e1.setLastName("jaiswal1");
 
-			session.persist(e1);// persisting the object
+			session.save(e1);// persisting the object
 
 			t.commit();// transaction is committed
 			session.close();

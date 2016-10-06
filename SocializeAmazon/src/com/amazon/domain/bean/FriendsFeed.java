@@ -3,7 +3,7 @@ package com.amazon.domain.bean;
 import java.util.Date;
 
 public class FriendsFeed {
-
+ 
 	private Integer id;
 	private User user;
 	private Product product;

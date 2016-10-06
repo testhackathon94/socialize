@@ -1,8 +1,25 @@
 package com.amazon.domain.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "test")
 public class Employee {
+	
+	@Id 
+	@GeneratedValue
+	@Column(name = "id")
 	private int id;
-	private String firstName,lastName; 
+	  
+	@Column(name = "firstName")
+	private String firstName;
+	
+	@Column(name = "lastName")
+	private String lastName; 
 	
 	public int getId() { 
 	 return id; 

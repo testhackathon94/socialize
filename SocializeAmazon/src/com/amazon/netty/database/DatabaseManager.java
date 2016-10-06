@@ -1,35 +1,39 @@
 package com.amazon.netty.database;
 
-import java.sql.Connection;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 
 
 public class DatabaseManager extends AbstractDatabaseManager {
 	Logger log = LogManager.getLogger(DatabaseManager.class);
 	public Object handleTransaction(ProceedingJoinPoint pjp) throws Throwable {
-		System.out.println("Database Interceptor being called");
-		String clazzName = pjp.getSignature().getDeclaringTypeName(); 
-		String methodName = pjp.getSignature().getName();
+		
+		SessionFactory factory = AmazonHibernateSessionFactory.getInstance().getSessionFactory();
+		System.out.println("Session factory initialized...");
+		
+		Session currentSession = factory.openSession();
+		ThreadSession.setSession(currentSession);
+		Transaction t = currentSession.beginTransaction();
 		Boolean hasException = false;
-		Connection conn = null;
 		Object result = null;
 		try {
-			conn = openConnection();
 			result = pjp.proceed(pjp.getArgs());
 		}catch (Throwable e) {
-			// TODO: handle exception
-			log.error("Exception occured in trace "+clazzName+"."+methodName+"-"+e.getMessage());
 			hasException = true;
 		}finally {
 			if(hasException){
-				rollBack(conn);
+				if(t != null && t.isActive()){
+					t.rollback();
+				}
 			}else{
-				commit(conn);
-				endConnection(conn);
+				if(t != null && t.isActive()){
+					t.commit();
+				}
 			}
 			
 		}

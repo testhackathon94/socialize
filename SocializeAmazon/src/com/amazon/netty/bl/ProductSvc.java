@@ -1,16 +1,36 @@
 package com.amazon.netty.bl;
 
-import com.amazon.netty.cache.Cache;
-import com.amazon.netty.cache.CacheKeySuffix;
-import com.amazon.netty.dao.DaoManager;
+import com.amazon.domain.bean.Order;
+import com.amazon.domain.bean.User;
 import com.amazon.netty.dao.ProductDao;
+import com.amazon.netty.database.Database;
+import com.amazon.util.GsonUtil;
 
 public class ProductSvc {
 	
-	@Cache(index={0},suffix=CacheKeySuffix.ProductList)
-	public String getBillingProducts(String storeId){
-		ProductDao productDao = DaoManager.getInstance().getProductDao();
-		String records = productDao.getBillingProducts(storeId);
-		return records;
+
+	@Database
+	public String fetchLastOrder(int customerId){
+		
+		ProductDao productDao = new ProductDao();
+		System.out.println("Calling product dao");
+		Order order = productDao.fetchOrderByCustomerId(customerId);
+		if(order == null){
+			return "No order found";
+		}
+		return GsonUtil.toString(order);
+	}
+	
+	
+	@Database
+	public String fetchCustomerId(int customerId){
+		
+		ProductDao productDao = new ProductDao();
+		System.out.println("Calling product dao");
+		User user = productDao.fetchCustomer(customerId);
+		if(user == null){
+			return "No order found";
+		}
+		return GsonUtil.toString(user);
 	}
 }

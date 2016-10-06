@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Employee {
 	
 	@Id 
-	@GeneratedValue
+//	@GeneratedValue
 	@Column(name = "id")
 	private int id;
 	  

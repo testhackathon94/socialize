@@ -2,8 +2,6 @@ package com.amazon.netty.cache;
 
 import java.util.Date;
 
-import com.amazon.netty.actions.ServiceSettingAction;
-import com.amazon.netty.blm.SettingServiceMgr;
 import com.amazon.netty.cache.event.CacheBuildContext;
 import com.amazon.netty.cache.event.CacheBuildType;
 import com.amazon.netty.cache.event.ServiceEvent;

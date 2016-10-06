@@ -7,28 +7,7 @@
 
 	
    
-   <bean id="serviceSettingSvc" class="com.amazon.netty.bl.ServiceSettingSvc"/>
-   <bean id="employeeSettingSvc" class="com.amazon.netty.bl.EmployeeSettingSvc"/>
-   <bean id="commonSvc" class="com.amazon.netty.bl.CommonSvc"/>
    <bean id="productSvc" class="com.amazon.netty.bl.ProductSvc"/>
-   <bean id="appointmentSvc" class="com.amazon.netty.bl.AppointmentSvc"/>
-   <bean id="customerSvc" class="com.amazon.netty.bl.CustomerSvc"/>
-   
-   
-   <bean id="serviceDao" class="com.amazon.netty.dao.ServiceDao"/>
-   <bean id="employeeDao" class="com.amazon.netty.dao.EmployeeDao"/>
-   <bean id="commonDao" class="com.amazon.netty.dao.CommonDao"/>
-   <bean id="productDao" class="com.amazon.netty.dao.ProductDao"/>
-   <bean id="appointmentDao" class="com.amazon.netty.dao.AppointmentDao"/>
-   <bean id="customerDao" class="com.amazon.netty.dao.CustomerDao"/>
-   
-   <bean id="serviceUsecase" class="com.amazon.netty.Usecase.ServiceUsecase"/>
-   <bean id="employeeUsecase" class="com.amazon.netty.Usecase.EmployeeUsecase"/>
-   <bean id="commonUsecase" class="com.amazon.netty.Usecase.CommonUsecase"/>
-   <bean id="productUsecase" class="com.amazon.netty.Usecase.ProductUsecase"/>
-   <bean id="appointmentUsecase" class="com.amazon.netty.Usecase.AppointmentUsecase"/>
-   <bean id="customerUsecase" class="com.amazon.netty.Usecase.CustomerUsecase"/>
-	
-   	
+ 	
 
 </beans>

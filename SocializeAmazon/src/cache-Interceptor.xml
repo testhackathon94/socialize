@@ -11,13 +11,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true" />
     
     <!-- A service interceptor that intercepts other services with methods annotated with @Transaction -->
-    <bean id="cacheInterceptor" class="com.amazon.netty.cache.CacheManager"/>
-    <aop:config>
-        <aop:aspect ref="cacheInterceptor">
-            <aop:pointcut id="cacheQueryPoint" expression="@annotation(com.amazon.netty.cache.Cache)"/>
-            <aop:around pointcut-ref="cacheQueryPoint" method="handleTransaction"/>
-        </aop:aspect>
-    </aop:config>
+
 	
 	<bean id="databaseInterceptor" class="com.amazon.netty.database.DatabaseManager"/>
     <aop:config>
@@ -26,14 +20,6 @@
             <aop:around pointcut-ref="databasePoint" method="handleTransaction"/>
         </aop:aspect>
     </aop:config>
-	
-	<bean id="authenticateInterceptor" class="com.amazon.netty.blm.AuthenticationHandler"/>
-    <aop:config>
-        <aop:aspect ref="authenticateInterceptor">
-            <aop:pointcut id="authenticatePoint" expression="@annotation(com.amazon.netty.blm.Authenticate)"/>
-            <aop:around pointcut-ref="authenticatePoint" method="handleTransaction"/>
-        </aop:aspect>
-    </aop:config>
-	
+		
 	
 </beans>

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,10 +23,12 @@ public class GoodBuy {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "product_id")
+	@ManyToOne
+	@JoinColumn(name="product_id")	
 	private Product product;
 	
-	@Column(name = "user_id")
+	@ManyToOne
+	@JoinColumn(name="user_id")	
 	private User user;
 	
 	@Column(name = "timestamp")
@@ -33,6 +37,12 @@ public class GoodBuy {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "goodBuy")
 	private Set<GoodBuyResponse> goodBuyResponseSet;
 	
+	public Set<GoodBuyResponse> getGoodBuyResponseSet() {
+		return goodBuyResponseSet;
+	}
+	public void setGoodBuyResponseSet(Set<GoodBuyResponse> goodBuyResponseSet) {
+		this.goodBuyResponseSet = goodBuyResponseSet;
+	}
 	public Integer getId() {
 		return id;
 	}

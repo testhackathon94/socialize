@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -18,10 +20,12 @@ public class Order {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "product_id")
+	@ManyToOne
+	@JoinColumn(name="product_id")	
 	private Product product;
 	
-	@Column(name = "user_id")
+	@ManyToOne
+	@JoinColumn(name="user_id")	
 	private User user;
 	
 	@Column(name = "timestamp")

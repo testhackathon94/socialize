@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,10 +19,12 @@ public class GoodBuyResponse {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name="good_buy_id")
+	@ManyToOne
+	@JoinColumn(name="good_buy_id")
 	private GoodBuy goodBuy;
 	
-	@Column(name = "friends_id")
+	@ManyToOne
+	@JoinColumn(name="friends_id")	
 	private User friend;
 	
 	@Column(name = "response")

@@ -2,6 +2,7 @@ package com.amazon.netty.bl;
 
 import com.amazon.domain.bean.Order;
 import com.amazon.domain.bean.User;
+import com.amazon.domain.bean.vo.UserVO;
 import com.amazon.netty.dao.ProductDao;
 import com.amazon.netty.database.Database;
 import com.amazon.util.GsonUtil;
@@ -31,6 +32,7 @@ public class ProductSvc {
 		if(user == null){
 			return "No order found";
 		}
-		return GsonUtil.toString(user);
+		UserVO userVO = new UserVO(user);
+		return GsonUtil.toString(userVO);
 	}
 }

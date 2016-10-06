@@ -1,12 +1,25 @@
 package com.amazon.domain.bean;
 
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
  
 public class Friend {
 
+	@Id 
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "user_id")
 	private User user;
+	
+	@Column(name = "friend_id")
 	private User friend;
+	
+	@Column(name = "timestamp")
 	private Date timestamp;
 	
 	public Integer getId() {

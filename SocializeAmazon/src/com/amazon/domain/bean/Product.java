@@ -3,14 +3,35 @@ package com.amazon.domain.bean;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 public class Product {
 
+	@Id 
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "product_name")
 	private String name;
+	
+	@Column(name = "product_image")
 	private String image;
+	
+	@Column(name = "product_price")
 	private BigDecimal price;
+	
+	@Column(name = "product_rating")
 	private BigDecimal rating;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")	
 	private Set<FriendsFeed> friendsFeedSet;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")	
 	private Set<GoodBuy> goodBuySet;
 
 	

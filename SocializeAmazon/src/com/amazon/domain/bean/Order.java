@@ -2,11 +2,24 @@ package com.amazon.domain.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 public class Order {
 
+	@Id 
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "product_id")
 	private Product product;
+	
+	@Column(name = "user_id")
 	private User user;
+	
+	@Column(name = "timestamp")
 	private Date orderDate;
 	public Date getOrderDate() {
 		return orderDate;

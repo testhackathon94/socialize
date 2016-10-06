@@ -2,16 +2,37 @@ package com.amazon.domain.bean;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 public class User {
 
+	@Id 
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "user_name")
 	private String name;
+	
+	@Column(name = "facebook_user_id")
 	private String facebook_id;
+	
+	@Column(name = "user_image")
 	private String image;
+	
+	@Column(name = "user_city")
 	private String city;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Friend> friendSet;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<FriendsFeed> friedsFeedSet;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Order> orderSet;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<MyActivity> myActivitySet;
 	
 	

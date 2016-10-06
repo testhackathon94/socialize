@@ -1,11 +1,15 @@
 package com.amazon.netty.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.amazon.domain.bean.Friend;
+import com.amazon.domain.bean.FriendsFeed;
 import com.amazon.domain.bean.Order;
+import com.amazon.domain.bean.Product;
 import com.amazon.domain.bean.User;
 import com.amazon.netty.database.ThreadSession;
 
@@ -52,4 +56,38 @@ public class ProductDao {
 		return null;
 		
 	}
+	
+	public void review(Integer customerId, Integer productId, String review){
+		Session session = ThreadSession.getThreadSession();
+		
+		String pq = "from com.amazon.domain.bean.Product p where p.id = " + productId;
+		Query productQuery = session.createQuery(pq);
+		Product product = (Product)productQuery.uniqueResult();
+		
+		
+		String fq = "from com.amazon.domain.bean.Friend f where f.user.id = " + customerId;
+		
+		
+		Query fhQuery = session.createQuery(fq);		
+		
+		List<Friend> friends = (List<Friend>)fhQuery.list();
+		
+		if(friends != null && friends.size() > 0){
+			for(Friend friend : friends){
+				FriendsFeed ff = new FriendsFeed();
+				ff.setFriend(friend.getFriend());
+				ff.setUser(friend.getUser());
+				ff.setProduct(product);
+				ff.setAction("Review");
+				ff.setContent(review);
+				ff.setEventTime(new Date());
+				session.saveOrUpdate(ff);
+			}
+			System.out.println("published review to friends count: " + friends.size());
+		}else{
+			System.out.println("No friends found to publish review");
+		}
+		
+	}
+	
 }

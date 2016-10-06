@@ -14,7 +14,7 @@ public class ProductSvc {
 	public String fetchLastOrder(int customerId){
 		
 		ProductDao productDao = new ProductDao();
-		System.out.println("Calling product dao");
+		System.out.println("Calling product dao - fetch last order");
 		Order order = productDao.fetchOrderByCustomerId(customerId);
 		if(order == null){
 			return "No order found";
@@ -27,7 +27,7 @@ public class ProductSvc {
 	public String fetchCustomerId(int customerId){
 		
 		ProductDao productDao = new ProductDao();
-		System.out.println("Calling product dao");
+		System.out.println("Calling product dao - fetch customerId");
 		User user = productDao.fetchCustomer(customerId);
 		if(user == null){
 			return "No order found";
@@ -35,4 +35,20 @@ public class ProductSvc {
 		UserVO userVO = new UserVO(user);
 		return GsonUtil.toString(userVO);
 	}
+	
+	
+	@Database
+	public String review(Integer customerId, Integer productId, String review){
+		try{
+		ProductDao productDao = new ProductDao();
+		System.out.println("Calling product dao - review");
+		productDao.review(customerId, productId, review);
+		return "SUCCESS";
+		}catch(Throwable e){
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return "failure";
+	}
+	
 }

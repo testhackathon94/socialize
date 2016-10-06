@@ -34,7 +34,7 @@ public class FriendsFeed {
 	@Column(name = "action")
 	private String action;
 	
-	@Column(name = "comment")
+	@Column(name = "content")
 	private String content;
 	
 	@Column(name = "timestamp")

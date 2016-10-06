@@ -44,6 +44,17 @@ public class AmazonProductAction extends BaseAction{
 		httpResponse.writeResponse(uri);
 	}
 	
+	@Path(path="/review")
+	public String reviewProduct(){
+		System.out.println("Calling review product");
+		String review = this.bean.getReview();
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		String reviewContent = this.bean.getReview();
+		return productSvc.review(customerId, productId, review);
+	}
+	
 	@Path(path="/lastOrder")
 	public String fetchLastOrder(){
 		System.out.println("Amazon Product Action...");

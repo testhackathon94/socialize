@@ -6,11 +6,31 @@ public class ProductBean {
 
 	private Integer customerId;
 	private Integer productId;
-	private BigDecimal rate;
+	private String rate;
 	private String review;
 	private Boolean isRecommended;
+	private Boolean isWished;
+	private Boolean isPurchased;
 	
 	
+	
+	
+	public Boolean getIsWished() {
+		return isWished;
+	}
+
+	public void setIsWished(Boolean isWished) {
+		this.isWished = isWished;
+	}
+
+	public Boolean getIsPurchased() {
+		return isPurchased;
+	}
+
+	public void setIsPurchased(Boolean isPurchased) {
+		this.isPurchased = isPurchased;
+	}
+
 	public Integer getProductId() {
 		return productId;
 	}
@@ -19,11 +39,11 @@ public class ProductBean {
 		this.productId = productId;
 	}
 
-	public BigDecimal getRate() {
+	public String getRate() {
 		return rate;
 	}
 
-	public void setRate(BigDecimal rate) {
+	public void setRate(String rate) {
 		this.rate = rate;
 	}
 

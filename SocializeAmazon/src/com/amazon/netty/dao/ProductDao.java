@@ -45,8 +45,12 @@ public class ProductDao {
 		Session session = ThreadSession.getThreadSession();
 		
 		Query query = session.createQuery(q);
-		
-		List<Order> orderList = (List<Order>)query.list();
+		List<Order> orderList = null;
+		try{
+			orderList = (List<Order>)query.list();
+		}catch(Throwable e){
+			e.printStackTrace();
+		}
 		
 		if(orderList != null && orderList.size() > 0){
 			System.out.println("Order found..." + orderList.size());
@@ -89,6 +93,27 @@ public class ProductDao {
 		}else{
 			System.out.println("No friends found to publish review");
 		}
+		
+	}
+
+	public List<FriendsFeed> fetchProductActivity(Integer productId){
+		
+		String q = "from com.amazon.domain.bean.FriendsFeed ff where ff.product.id = " + productId;
+		
+		Session session = ThreadSession.getThreadSession();
+		
+		Query query = session.createQuery(q);
+		
+		List<FriendsFeed> friendsFeedList = (List<FriendsFeed>)query.list();
+		
+		if(friendsFeedList != null && friendsFeedList.size() > 0){
+			System.out.println("Friends Feed found..." + friendsFeedList.size());
+			return friendsFeedList;
+		}else{
+			System.out.println("No Friends Feed found...");
+		}
+		
+		return null;
 		
 	}
 	

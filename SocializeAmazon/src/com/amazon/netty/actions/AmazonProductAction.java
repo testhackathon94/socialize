@@ -73,6 +73,17 @@ public class AmazonProductAction extends BaseAction{
 		return productSvc.activity(customerId, productId, rate, "Good Buy");
 	}
 
+	@Path(path="/goodBuyResponse")
+	public String goodBuyResponse(){
+		System.out.println("Calling good buy");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer goodBuyId = this.bean.getGoodBuyId();
+		String comment = this.bean.getComment();
+		String goodBuyResponse = this.bean.getGoodBuyResponse();
+		return productSvc.writeGoodBuyResponse(goodBuyId, customerId, goodBuyResponse, comment);
+	}
+
 	
 	@Path(path="/recommend")
 	public String recommendProduct(){
@@ -136,6 +147,21 @@ public class AmazonProductAction extends BaseAction{
 		}
 		return "";
 	}
+
+	@Path(path="/productActivity")
+	public String fetchProductActivity(){
+		try{
+		System.out.println("Amazon Product Action...");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer productId = this.bean.getProductId();
+		return productSvc.fetchProductActivity(productId);
+		}catch(Throwable e){
+			System.out.println("Exception while getting freinds feed");
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	
 	@Path(path="/getMyActivity")
 	public String getMyActivity(){

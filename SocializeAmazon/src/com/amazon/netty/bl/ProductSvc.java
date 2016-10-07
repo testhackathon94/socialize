@@ -12,6 +12,7 @@ import com.amazon.domain.bean.User;
 import com.amazon.domain.bean.vo.FriendFeedVO;
 import com.amazon.domain.bean.vo.GoodBuyVO;
 import com.amazon.domain.bean.vo.MyActivityVO;
+import com.amazon.domain.bean.vo.OrderVO;
 import com.amazon.domain.bean.vo.ProductVO;
 import com.amazon.domain.bean.vo.UserVO;
 import com.amazon.netty.dao.ActivityDAO;
@@ -30,7 +31,8 @@ public class ProductSvc {
 		if (order == null) {
 			return "No order found";
 		}
-		return GsonUtil.toString(order);
+		OrderVO orderVo = new OrderVO(order);
+		return GsonUtil.toString(orderVo);
 	}
 
 	@Database
@@ -47,7 +49,30 @@ public class ProductSvc {
 	}
 
 	@Database
+	public String writeGoodBuyResponse(Integer goodBuyId, Integer userId, String response, String comment){
+		try {
 
+			ActivityDAO activityDAO = new ActivityDAO();
+
+			System.out.println("Calling product dao - review");
+
+			activityDAO.writeGoodBuyResponse(goodBuyId, userId, response, comment);
+
+			return "SUCCESS";
+
+		} catch (Throwable e) {
+
+			e.printStackTrace();
+
+			System.out.println(e.getMessage());
+
+		}
+
+		return "failure";
+
+	}
+	
+	@Database
 	public String activity(Integer customerId, Integer productId, String review, String action) {
 
 		try {
@@ -86,6 +111,39 @@ public class ProductSvc {
 		return "failure";
 	}
 
+	
+	@Database
+	public String fetchProductActivity(int productId) {
+		ProductDao productDao = new ProductDao();
+		System.out.println("Calling product dao - fetch My Friends Activity");
+		List<FriendsFeed> friendsFeedList = productDao.fetchProductActivity(productId);
+
+		List<FriendFeedVO> ffVoList = new ArrayList<FriendFeedVO>();
+
+		for (FriendsFeed friendsFeed : friendsFeedList) {
+			User user = friendsFeed.getUser();
+//			Product product = friendsFeed.getProduct();
+			GoodBuy goodBuy = friendsFeed.getGoodbuy();
+			GoodBuyVO goodBuyVO = null;
+			if (goodBuy != null) {
+				goodBuyVO = getGoodBuyVO(goodBuy);
+
+			}
+
+			UserVO userVO = new UserVO(user);
+//			ProductVO productVO = new ProductVO(product);
+
+			FriendFeedVO feedVO = new FriendFeedVO(friendsFeed, userVO, null);
+			if (goodBuyVO != null) {
+				feedVO.setGoodBuyVO(goodBuyVO);
+			}
+			ffVoList.add(feedVO);
+
+		}
+
+		return GsonUtil.toString(ffVoList);
+	}
+	
 	@Database
 	public String fetchMyFriendsActivity(int customerId) {
 

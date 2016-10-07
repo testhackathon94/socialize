@@ -11,10 +11,36 @@ public class ProductBean {
 	private Boolean isRecommended;
 	private Boolean isWished;
 	private Boolean isPurchased;
+	private Integer goodBuyId;
+	private String goodBuyResponse;
+	private String comment;
 	
 	
 	
-	
+	public String getGoodBuyResponse() {
+		return goodBuyResponse;
+	}
+
+	public void setGoodBuyResponse(String goodBuyResponse) {
+		this.goodBuyResponse = goodBuyResponse;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Integer getGoodBuyId() {
+		return goodBuyId;
+	}
+
+	public void setGoodBuyId(Integer goodBuyId) {
+		this.goodBuyId = goodBuyId;
+	}
+
 	public Boolean getIsWished() {
 		return isWished;
 	}

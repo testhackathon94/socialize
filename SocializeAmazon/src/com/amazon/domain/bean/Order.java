@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 public class Order {
 
 	@Id 
@@ -28,7 +28,7 @@ public class Order {
 	@JoinColumn(name="user_id")	
 	private User user;
 	
-	@Column(name = "timestamp")
+	@Column(name = "order_date")
 	private Date orderDate;
 	public Date getOrderDate() {
 		return orderDate;
@@ -54,8 +54,11 @@ public class Order {
 	public void setIsRecommended(Boolean isRecommended) {
 		this.isRecommended = isRecommended;
 	}
+	@Column(name = "is_rated")
 	private Boolean isRated;
+	@Column(name = "is_reviewed")
 	private Boolean isReviewed;
+	@Column(name = "is_recommended")
 	private Boolean isRecommended;
 
 	

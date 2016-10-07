@@ -11,6 +11,7 @@ public class FriendFeedVO {
 	private String action;
 	private String content;
 	private Date eventDate;
+	private GoodBuyVO goodBuyVO;
 	
 	public FriendFeedVO() {
 		// TODO Auto-generated constructor stub
@@ -22,6 +23,16 @@ public class FriendFeedVO {
 		this.action = ff.getAction();
 		this.content = ff.getContent();
 		this.eventDate = ff.getEventTime();
+	}
+
+	
+	
+	public GoodBuyVO getGoodBuyVO() {
+		return goodBuyVO;
+	}
+
+	public void setGoodBuyVO(GoodBuyVO goodBuyVO) {
+		this.goodBuyVO = goodBuyVO;
 	}
 
 	public UserVO getUserVo() {

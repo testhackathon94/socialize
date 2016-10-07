@@ -8,13 +8,12 @@ import org.hibernate.Session;
 
 import com.amazon.domain.bean.Friend;
 import com.amazon.domain.bean.FriendsFeed;
+import com.amazon.domain.bean.GoodBuyResponse;
 import com.amazon.domain.bean.MyActivity;
 import com.amazon.domain.bean.Order;
 import com.amazon.domain.bean.Product;
 import com.amazon.domain.bean.User;
-import com.amazon.domain.bean.vo.ProductVO;
 import com.amazon.netty.database.ThreadSession;
-import com.amazon.util.GsonUtil;
 
 public class ProductDao {
 	
@@ -108,6 +107,30 @@ public class ProductDao {
 			return friendsFeedList;
 		}else{
 			System.out.println("No Friends Feed found...");
+		}
+		
+		return null;
+		
+	}
+	
+	public List<GoodBuyResponse> fetchGoodBuyResponse(Integer goodBuyId){
+		
+		String q = "from com.amazon.domain.bean.GoodBuyResponse g where g.goodBuy.id = " + goodBuyId;
+		
+		Session session = ThreadSession.getThreadSession();
+		
+		Query query = session.createQuery(q);
+		List<GoodBuyResponse> goodBuyResponse  = null;
+		try{
+			goodBuyResponse = (List<GoodBuyResponse>)query.list();
+		}catch(Throwable e){
+			e.printStackTrace();
+		}
+		if(goodBuyResponse != null && goodBuyResponse.size() > 0){
+			System.out.println("goodBuyResponse found..." + goodBuyResponse.size());
+			return goodBuyResponse;
+		}else{
+			System.out.println("No goodBuyResponse found...");
 		}
 		
 		return null;

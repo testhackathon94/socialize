@@ -36,6 +36,15 @@ public class MyActivity {
 	@Column(name = "timestamp")
 	private Date eventtime;
 	
+	@ManyToOne
+	@JoinColumn(name="good_buy_id")
+	private GoodBuy goodBuy;
+	public GoodBuy getGoodBuy() {
+		return goodBuy;
+	}
+	public void setGoodBuy(GoodBuy goodBuy) {
+		this.goodBuy = goodBuy;
+	}
 	public Integer getId() {
 		return id;
 	}

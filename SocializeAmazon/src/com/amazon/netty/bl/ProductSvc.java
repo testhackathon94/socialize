@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.amazon.domain.bean.FriendsFeed;
+import com.amazon.domain.bean.GoodBuy;
 import com.amazon.domain.bean.MyActivity;
 import com.amazon.domain.bean.Order;
 import com.amazon.domain.bean.Product;
 import com.amazon.domain.bean.User;
 import com.amazon.domain.bean.vo.FriendFeedVO;
+import com.amazon.domain.bean.vo.GoodBuyVO;
 import com.amazon.domain.bean.vo.MyActivityVO;
 import com.amazon.domain.bean.vo.ProductVO;
 import com.amazon.domain.bean.vo.UserVO;
@@ -74,16 +76,31 @@ public class ProductSvc {
 		{
 			User user = friendsFeed.getUser();
 			Product product = friendsFeed.getProduct();
+			GoodBuy goodBuy = friendsFeed.getGoodbuy();
+			GoodBuyVO goodBuyVO = null;
+			if(goodBuy != null){
+				goodBuyVO = getGoodBuyVO(goodBuy);
+				
+			}
 			
 			UserVO userVO = new UserVO(user);
 			ProductVO productVO = new ProductVO(product);
 
 			FriendFeedVO feedVO = new FriendFeedVO(friendsFeed, userVO, productVO);
+			if(goodBuyVO != null){
+				feedVO.setGoodBuyVO(goodBuyVO);
+			}
 			ffVoList.add(feedVO);
 			
 		}
 	
 		return GsonUtil.toString(ffVoList);
+	}
+	
+	
+	private GoodBuyVO getGoodBuyVO(GoodBuy goodBuy){
+		GoodBuyVO goodBuyVO = new GoodBuyVO(goodBuy);
+		return goodBuyVO;
 	}
 	
 	@Database
@@ -98,10 +115,19 @@ public class ProductSvc {
 			User user = myActivity.getUser();
 			Product product = myActivity.getProduct();
 			
-			UserVO userVO = new UserVO(user);
+			GoodBuy goodBuy = myActivity.getGoodBuy();
+			GoodBuyVO goodBuyVO = null;
+			if(goodBuy != null){
+				goodBuyVO = getGoodBuyVO(goodBuy);
+				
+			}
+				UserVO userVO = new UserVO(user);
 			ProductVO productVO = new ProductVO(product);
 
 			MyActivityVO myActivityVO = new MyActivityVO(myActivity, userVO, productVO);
+			if(goodBuyVO != null){
+				myActivityVO.setGoodBuyVO(goodBuyVO);
+			}
 			myActivityVOList.add(myActivityVO);
 			
 		}

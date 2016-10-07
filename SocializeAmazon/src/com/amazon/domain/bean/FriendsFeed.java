@@ -39,6 +39,16 @@ public class FriendsFeed {
 	
 	@Column(name = "timestamp")
 	private Date eventTime;
+	
+	@ManyToOne
+	@JoinColumn(name="good_buy_id")
+	private GoodBuy goodbuy;
+	public GoodBuy getGoodbuy() {
+		return goodbuy;
+	}
+	public void setGoodbuy(GoodBuy goodbuy) {
+		this.goodbuy = goodbuy;
+	}
 	public Integer getId() {
 		return id;
 	}

@@ -12,6 +12,7 @@ public class MyActivityVO {
 	private String action;
 	private String content;
 	private Date eventDate;
+	private GoodBuyVO goodBuyVO;
 	
 	public MyActivityVO() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +24,16 @@ public class MyActivityVO {
 		this.action = myActivity.getAction();
 		this.content = myActivity.getContent();
 		this.eventDate = myActivity.getEventtime();
+	}
+
+	
+	
+	public GoodBuyVO getGoodBuyVO() {
+		return goodBuyVO;
+	}
+
+	public void setGoodBuyVO(GoodBuyVO goodBuyVO) {
+		this.goodBuyVO = goodBuyVO;
 	}
 
 	public UserVO getUserVo() {

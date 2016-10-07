@@ -30,7 +30,7 @@ public class GoodBuyResponse {
 	@Column(name = "response")
 	private String response;
 	
-	@Column(name = "comment")
+	@Column(name = "comments")
 	private String comment;
 	
 	@Column(name = "timestamp")

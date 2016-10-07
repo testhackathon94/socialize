@@ -73,10 +73,16 @@ public class AmazonProductAction extends BaseAction{
 	
 	@Path(path="/getMyFriendsActivity")
 	public String fetchFriendsActivity(){
+		try{
 		System.out.println("Amazon Product Action...");
 		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
 		Integer customerId = this.bean.getCustomerId();
 		return productSvc.fetchMyFriendsActivity(customerId);
+		}catch(Throwable e){
+			System.out.println("Exception while getting freinds feed");
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	@Path(path="/getMyActivity")

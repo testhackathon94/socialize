@@ -113,10 +113,10 @@ public class ProductSvc {
 
 	
 	@Database
-	public String fetchProductActivity(int productId) {
+	public String fetchProductActivity(int productId, Integer customerId) {
 		ProductDao productDao = new ProductDao();
 		System.out.println("Calling product dao - fetch My Friends Activity");
-		List<FriendsFeed> friendsFeedList = productDao.fetchProductActivity(productId);
+		List<FriendsFeed> friendsFeedList = productDao.fetchProductActivity(productId, customerId);
 
 		List<FriendFeedVO> ffVoList = new ArrayList<FriendFeedVO>();
 

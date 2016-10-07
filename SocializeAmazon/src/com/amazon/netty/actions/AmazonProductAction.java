@@ -154,7 +154,8 @@ public class AmazonProductAction extends BaseAction{
 		System.out.println("Amazon Product Action...");
 		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
 		Integer productId = this.bean.getProductId();
-		return productSvc.fetchProductActivity(productId);
+		Integer customerId = this.bean.getCustomerId();
+		return productSvc.fetchProductActivity(productId, customerId);
 		}catch(Throwable e){
 			System.out.println("Exception while getting freinds feed");
 			e.printStackTrace();

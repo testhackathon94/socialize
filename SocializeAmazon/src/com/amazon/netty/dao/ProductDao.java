@@ -96,9 +96,9 @@ public class ProductDao {
 		
 	}
 
-	public List<FriendsFeed> fetchProductActivity(Integer productId){
+	public List<FriendsFeed> fetchProductActivity(Integer productId, Integer customerId){
 		
-		String q = "from com.amazon.domain.bean.FriendsFeed ff where ff.product.id = " + productId + " order by id desc";
+		String q = "from com.amazon.domain.bean.FriendsFeed ff where ff.product.id = " + productId + " and ff.friend.id = " + customerId + " order by id desc";
 		
 		Session session = ThreadSession.getThreadSession();
 		
@@ -119,7 +119,7 @@ public class ProductDao {
 	
 	public List<FriendsFeed> fetchFriendsActivity(Integer customerId){
 		
-		String q = "from com.amazon.domain.bean.FriendsFeed where friend.id = " + customerId  + " order by id desc";
+		String q = "from com.amazon.domain.bean.FriendsFeed where friend.id = " + customerId +  " order by id desc";
 		
 		Session session = ThreadSession.getThreadSession();
 		

@@ -70,5 +70,22 @@ public class AmazonProductAction extends BaseAction{
 		Integer customerId = this.bean.getCustomerId();
 		return productSvc.fetchCustomerId(customerId);
 	}
+	
+	@Path(path="/getMyFriendsActivity")
+	public String fetchFriendsActivity(){
+		System.out.println("Amazon Product Action...");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		return productSvc.fetchMyFriendsActivity(customerId);
+	}
+	
+	@Path(path="/getMyActivity")
+	public String getMyActivity(){
+		System.out.println("Amazon Product Action...");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		return productSvc.getMyActivity(customerId);
+	}
+
 
 }

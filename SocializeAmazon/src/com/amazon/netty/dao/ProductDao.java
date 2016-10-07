@@ -8,10 +8,13 @@ import org.hibernate.Session;
 
 import com.amazon.domain.bean.Friend;
 import com.amazon.domain.bean.FriendsFeed;
+import com.amazon.domain.bean.MyActivity;
 import com.amazon.domain.bean.Order;
 import com.amazon.domain.bean.Product;
 import com.amazon.domain.bean.User;
+import com.amazon.domain.bean.vo.ProductVO;
 import com.amazon.netty.database.ThreadSession;
+import com.amazon.util.GsonUtil;
 
 public class ProductDao {
 	
@@ -89,5 +92,48 @@ public class ProductDao {
 		}
 		
 	}
+	
+	public List<FriendsFeed> fetchFriendsActivity(Integer customerId){
+		
+		String q = "from com.amazon.domain.bean.FriendsFeed where friend.id = " + customerId;
+		
+		Session session = ThreadSession.getThreadSession();
+		
+		Query query = session.createQuery(q);
+		
+		List<FriendsFeed> friendsFeedList = (List<FriendsFeed>)query.list();
+		
+		if(friendsFeedList != null && friendsFeedList.size() > 0){
+			System.out.println("Friends Feed found..." + friendsFeedList.size());
+			return friendsFeedList;
+		}else{
+			System.out.println("No Friends Feed found...");
+		}
+		
+		return null;
+		
+	}
+	
+	public List<MyActivity> getMyActivity(Integer customerId){
+		Session session = ThreadSession.getThreadSession();
+		
+		String maq = "from com.amazon.domain.bean.MyActivity where user_id = "+ customerId;
+		Query myActivityQuery = session.createQuery(maq);
+		
+		List<MyActivity> myActivityList = (List<MyActivity>)myActivityQuery.list();
+		
+		if(myActivityList != null && myActivityList.size() > 0)
+		{
+			System.out.println("My Activity found..." + myActivityList.size());
+			return myActivityList;
+		}
+		else
+		{
+			System.out.println("No Activity found for the customer");
+		}
+		return null;
+	}
+	
+
 	
 }

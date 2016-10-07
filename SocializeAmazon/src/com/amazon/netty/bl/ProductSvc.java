@@ -14,6 +14,7 @@ import com.amazon.domain.bean.vo.GoodBuyVO;
 import com.amazon.domain.bean.vo.MyActivityVO;
 import com.amazon.domain.bean.vo.ProductVO;
 import com.amazon.domain.bean.vo.UserVO;
+import com.amazon.netty.dao.ActivityDAO;
 import com.amazon.netty.dao.ProductDao;
 import com.amazon.netty.database.Database;
 import com.amazon.util.GsonUtil;
@@ -46,6 +47,35 @@ public class ProductSvc {
 		UserVO userVO = new UserVO(user);
 		return GsonUtil.toString(userVO);
 	}
+	
+	
+	@Database
+
+	public String activity(Integer customerId, Integer productId, String review, String action){
+
+	try{
+
+	ActivityDAO activityDAO = new ActivityDAO();
+
+	System.out.println("Calling product dao - review");
+
+	activityDAO.activity(customerId, productId, review, action);
+
+	return "SUCCESS";
+
+	}catch(Throwable e){
+
+	e.printStackTrace();
+
+	System.out.println(e.getMessage());
+
+	}
+
+	return "failure";
+
+	}
+
+
 	
 	
 	@Database

@@ -20,148 +20,138 @@ import com.amazon.netty.database.Database;
 import com.amazon.util.GsonUtil;
 
 public class ProductSvc {
-	
 
 	@Database
-	public String fetchLastOrder(int customerId){
-		
+	public String fetchLastOrder(int customerId) {
+
 		ProductDao productDao = new ProductDao();
 		System.out.println("Calling product dao - fetch last order");
 		Order order = productDao.fetchOrderByCustomerId(customerId);
-		if(order == null){
+		if (order == null) {
 			return "No order found";
 		}
 		return GsonUtil.toString(order);
 	}
-	
-	
+
 	@Database
-	public String fetchCustomerId(int customerId){
-		
+	public String fetchCustomerId(int customerId) {
+
 		ProductDao productDao = new ProductDao();
 		System.out.println("Calling product dao - fetch customerId");
 		User user = productDao.fetchCustomer(customerId);
-		if(user == null){
+		if (user == null) {
 			return "No order found";
 		}
 		UserVO userVO = new UserVO(user);
 		return GsonUtil.toString(userVO);
 	}
-	
-	
+
 	@Database
 
-	public String activity(Integer customerId, Integer productId, String review, String action){
+	public String activity(Integer customerId, Integer productId, String review, String action) {
 
-	try{
+		try {
 
-	ActivityDAO activityDAO = new ActivityDAO();
+			ActivityDAO activityDAO = new ActivityDAO();
 
-	System.out.println("Calling product dao - review");
+			System.out.println("Calling product dao - review");
 
-	activityDAO.activity(customerId, productId, review, action);
+			activityDAO.activity(customerId, productId, review, action);
 
-	return "SUCCESS";
+			return "SUCCESS";
 
-	}catch(Throwable e){
+		} catch (Throwable e) {
 
-	e.printStackTrace();
+			e.printStackTrace();
 
-	System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
+
+		}
+
+		return "failure";
 
 	}
 
-	return "failure";
-
-	}
-
-
-	
-	
 	@Database
-	public String review(Integer customerId, Integer productId, String review){
-		try{
-		ProductDao productDao = new ProductDao();
-		System.out.println("Calling product dao - review");
-		productDao.review(customerId, productId, review);
-		return "SUCCESS";
-		}catch(Throwable e){
+	public String review(Integer customerId, Integer productId, String review) {
+		try {
+			ProductDao productDao = new ProductDao();
+			System.out.println("Calling product dao - review");
+			productDao.review(customerId, productId, review);
+			return "SUCCESS";
+		} catch (Throwable e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 		return "failure";
 	}
-	
-	
+
 	@Database
-	public String fetchMyFriendsActivity(int customerId){
-		
+	public String fetchMyFriendsActivity(int customerId) {
+
 		ProductDao productDao = new ProductDao();
 		System.out.println("Calling product dao - fetch My Friends Activity");
 		List<FriendsFeed> friendsFeedList = productDao.fetchFriendsActivity(customerId);
-		
+
 		List<FriendFeedVO> ffVoList = new ArrayList<FriendFeedVO>();
-		
-		for(FriendsFeed friendsFeed : friendsFeedList)
-		{
+
+		for (FriendsFeed friendsFeed : friendsFeedList) {
 			User user = friendsFeed.getUser();
 			Product product = friendsFeed.getProduct();
 			GoodBuy goodBuy = friendsFeed.getGoodbuy();
 			GoodBuyVO goodBuyVO = null;
-			if(goodBuy != null){
+			if (goodBuy != null) {
 				goodBuyVO = getGoodBuyVO(goodBuy);
-				
+
 			}
-			
+
 			UserVO userVO = new UserVO(user);
 			ProductVO productVO = new ProductVO(product);
 
 			FriendFeedVO feedVO = new FriendFeedVO(friendsFeed, userVO, productVO);
-			if(goodBuyVO != null){
+			if (goodBuyVO != null) {
 				feedVO.setGoodBuyVO(goodBuyVO);
 			}
 			ffVoList.add(feedVO);
-			
+
 		}
-	
+
 		return GsonUtil.toString(ffVoList);
 	}
-	
-	
-	private GoodBuyVO getGoodBuyVO(GoodBuy goodBuy){
+
+	private GoodBuyVO getGoodBuyVO(GoodBuy goodBuy) {
 		GoodBuyVO goodBuyVO = new GoodBuyVO(goodBuy);
 		return goodBuyVO;
 	}
-	
+
 	@Database
-	public String getMyActivity(Integer customerId){
-	
+	public String getMyActivity(Integer customerId) {
+
 		ProductDao productDao = new ProductDao();
 		System.out.println("Calling product dao - getMyActivity");
 		List<MyActivity> myActivityList = productDao.getMyActivity(customerId);
 		List<MyActivityVO> myActivityVOList = new ArrayList<MyActivityVO>();
-		for(MyActivity myActivity : myActivityList)
-		{
+		for (MyActivity myActivity : myActivityList) {
 			User user = myActivity.getUser();
 			Product product = myActivity.getProduct();
-			
+
 			GoodBuy goodBuy = myActivity.getGoodBuy();
 			GoodBuyVO goodBuyVO = null;
-			if(goodBuy != null){
+			if (goodBuy != null) {
 				goodBuyVO = getGoodBuyVO(goodBuy);
-				
+
 			}
-				UserVO userVO = new UserVO(user);
+			UserVO userVO = new UserVO(user);
 			ProductVO productVO = new ProductVO(product);
 
 			MyActivityVO myActivityVO = new MyActivityVO(myActivity, userVO, productVO);
-			if(goodBuyVO != null){
+			if (goodBuyVO != null) {
 				myActivityVO.setGoodBuyVO(goodBuyVO);
 			}
 			myActivityVOList.add(myActivityVO);
-			
+
 		}
-	
+
 		return GsonUtil.toString(myActivityVOList);
 
 	}

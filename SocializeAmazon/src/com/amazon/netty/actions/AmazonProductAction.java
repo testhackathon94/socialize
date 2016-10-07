@@ -3,7 +3,6 @@ package com.amazon.netty.actions;
 
 
 
-import com.amazon.domain.bean.Order;
 import com.amazon.netty.bean.ProductBean;
 import com.amazon.netty.bl.ProductSvc;
 import com.amazon.netty.blm.AmazonServiceMgr;
@@ -47,13 +46,66 @@ public class AmazonProductAction extends BaseAction{
 	@Path(path="/review")
 	public String reviewProduct(){
 		System.out.println("Calling review product");
-		String review = this.bean.getReview();
 		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
 		Integer customerId = this.bean.getCustomerId();
 		Integer productId = this.bean.getProductId();
 		String reviewContent = this.bean.getReview();
-		return productSvc.review(customerId, productId, review);
+		return productSvc.activity(customerId, productId, reviewContent, "Reviewed");
 	}
+	
+	@Path(path="/rate")
+	public String rateProduct(){
+		System.out.println("Calling review product");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		String rate = this.bean.getRate();
+		return productSvc.activity(customerId, productId, rate, "Rated");
+	}
+
+	@Path(path="/goodBuy")
+	public String isThisGoodBuy(){
+		System.out.println("Calling good buy");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		String rate = this.bean.getRate();
+		return productSvc.activity(customerId, productId, rate, "Good Buy");
+	}
+
+	
+	@Path(path="/recommend")
+	public String recommendProduct(){
+		System.out.println("Calling review product");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		Boolean recommend = this.bean.getIsRecommended();
+		return productSvc.activity(customerId, productId, recommend.toString(), "Recommended");
+	}
+
+	@Path(path="/sharePurchase")
+	public String sharePurchase(){
+		System.out.println("Calling review product");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		Boolean isPurchased = this.bean.getIsPurchased();
+		return productSvc.activity(customerId, productId, isPurchased.toString(), "Purchased");
+	}
+
+	@Path(path="/addWish")
+	public String addWish(){
+		System.out.println("Calling review product");
+		ProductSvc productSvc = AmazonServiceMgr.getInstance().getProductSvc();
+		Integer customerId = this.bean.getCustomerId();
+		Integer productId = this.bean.getProductId();
+		Boolean isWished = this.bean.getIsWished();
+		return productSvc.activity(customerId, productId, isWished.toString(), "Wish List");
+	}
+
+	
+	
 	
 	@Path(path="/lastOrder")
 	public String fetchLastOrder(){
@@ -95,3 +147,4 @@ public class AmazonProductAction extends BaseAction{
 
 
 }
+

@@ -15,7 +15,6 @@
  */
 package com.amazon.netty.http;
 
-import com.amazon.netty.cache.PeriodicCacheBuilder;
 import com.amazon.netty.controller.AnnotatedPathManager;
 
 import io.netty.bootstrap.ServerBootstrap;
